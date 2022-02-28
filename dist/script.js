@@ -994,6 +994,19 @@ function () {
       this.showSlides(this.slideIndex += n);
     }
   }, {
+    key: "showHanson",
+    value: function showHanson() {
+      // console.log(this.slideIndex);
+      if (this.slideIndex === 3) {
+        setTimeout(function () {
+          document.querySelector('.hanson').style.opacity = '1';
+          document.querySelector('.hanson').classList.add('animate__animated', 'animate__slideInUp');
+        }, 3000);
+      } else {
+        document.querySelector('.hanson').style.opacity = '0';
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this = this;
@@ -1001,6 +1014,8 @@ function () {
       this.btns.forEach(function (btn) {
         btn.addEventListener('click', function () {
           _this.plusSlides(1);
+
+          _this.showHanson();
         });
         btn.parentNode.previousElementSibling.addEventListener('click', function (e) {
           e.preventDefault(); //т.к.это ссылка
