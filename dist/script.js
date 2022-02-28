@@ -1001,14 +1001,13 @@ function () {
       this.btns.forEach(function (btn) {
         btn.addEventListener('click', function () {
           _this.plusSlides(1);
+        });
+        btn.parentNode.previousElementSibling.addEventListener('click', function (e) {
+          e.preventDefault(); //т.к.это ссылка
 
-          btn.parentNode.previousElementSibling.addEventListener('click', function (e) {
-            e.preventDefault(); //т.к.это ссылка
+          _this.slideIndex = 1;
 
-            _this.slideIndex = 1;
-
-            _this.showSlides(_this.slideIndex);
-          });
+          _this.showSlides(_this.slideIndex);
         });
       });
       this.showSlides(this.slideIndex);

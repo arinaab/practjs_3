@@ -27,12 +27,12 @@ export default class Slider {
         this.btns.forEach(btn => {
             btn.addEventListener('click', () => {
                 this.plusSlides(1);
-
-                btn.parentNode.previousElementSibling.addEventListener('click', (e) => {
-                    e.preventDefault(); //т.к.это ссылка
-                    this.slideIndex = 1;
-                    this.showSlides(this.slideIndex);
-                });
+            });
+            
+            btn.parentNode.previousElementSibling.addEventListener('click', (e) => {
+                e.preventDefault(); //т.к.это ссылка
+                this.slideIndex = 1;
+                this.showSlides(this.slideIndex);
             });
         });
 
