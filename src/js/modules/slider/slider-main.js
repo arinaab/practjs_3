@@ -1,9 +1,9 @@
-export default class Slider {
-    constructor(page, btns) {
-        this.page = document.querySelector(page);
-        this.slides = this.page.children; //получаем всех детей данной страницы
-        this.btns = document.querySelectorAll(btns);
-        this.slideIndex = 1;
+import Slider from "./slider";
+
+export default class MainSlider extends Slider {
+    constructor(container, btns) {
+        super(container, btns);
+
     }
 
     showSlides(n) {
