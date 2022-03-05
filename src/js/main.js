@@ -27,5 +27,6 @@ window.addEventListener('DOMContentLoaded', () => {
         prev: '.modules__info-btns .slick-prev',
         next: '.modules__info-btns .slick-next',
         activeClass: 'feed__item-active',
-        animate: true}).init();
+        animate: true,
+        autoplay: true}).init();
 });

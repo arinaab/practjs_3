@@ -2792,7 +2792,8 @@ window.addEventListener('DOMContentLoaded', function () {
     prev: '.modules__info-btns .slick-prev',
     next: '.modules__info-btns .slick-next',
     activeClass: 'feed__item-active',
-    animate: true
+    animate: true,
+    autoplay: true
   }).init();
 });
 
@@ -3131,9 +3132,7 @@ function (_Slider) {
       var _this2 = this;
 
       this.next.addEventListener('click', function () {
-        _this2.container.append(_this2.slides[0]);
-
-        _this2.decorizeSlides();
+        return _this2.nextSlide();
       });
       this.prev.addEventListener('click', function () {
         _this2.container.prepend(_this2.slides[_this2.slides.length - 1]);
@@ -3142,11 +3141,25 @@ function (_Slider) {
       });
     }
   }, {
+    key: "nextSlide",
+    value: function nextSlide() {
+      this.container.append(this.slides[0]);
+      this.decorizeSlides();
+    }
+  }, {
     key: "init",
     value: function init() {
+      var _this3 = this;
+
       this.container.style.cssText = "\n            display: flex;\n            flex-wrap: wrap;\n            overflow: hidden;\n            align-items: flex-start;\n        ";
       this.bindTriggers();
       this.decorizeSlides();
+
+      if (this.autoplay) {
+        setInterval(function () {
+          return _this3.nextSlide();
+        }, 5000);
+      }
     }
   }]);
 
