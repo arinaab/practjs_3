@@ -2763,6 +2763,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_slider_slider_main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/slider/slider-main */ "./src/js/modules/slider/slider-main.js");
 /* harmony import */ var _modules_slider_slider_mini__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/slider/slider-mini */ "./src/js/modules/slider/slider-mini.js");
 /* harmony import */ var _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/playVideo */ "./src/js/modules/playVideo.js");
+/* harmony import */ var _modules_difference__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/difference */ "./src/js/modules/difference.js");
+
 
 
 
@@ -2795,7 +2797,85 @@ window.addEventListener('DOMContentLoaded', function () {
     animate: true,
     autoplay: true
   }).init();
+  new _modules_difference__WEBPACK_IMPORTED_MODULE_3__["default"]('.officerold', '.officer__card-item').init();
+  new _modules_difference__WEBPACK_IMPORTED_MODULE_3__["default"]('.officernew', '.officer__card-item').init();
 });
+
+/***/ }),
+
+/***/ "./src/js/modules/difference.js":
+/*!**************************************!*\
+  !*** ./src/js/modules/difference.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Different; });
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Different =
+/*#__PURE__*/
+function () {
+  function Different(officer, cards) {
+    _classCallCheck(this, Different);
+
+    this.officer = document.querySelector(officer);
+    this.cards = this.officer.querySelectorAll(cards);
+    this.counter = 0;
+  }
+
+  _createClass(Different, [{
+    key: "hideCards",
+    value: function hideCards() {
+      var _this = this;
+
+      this.cards.forEach(function (card, i) {
+        if (i !== _this.cards.length - 1) {
+          card.style.display = 'none';
+        }
+      });
+    }
+  }, {
+    key: "showCard",
+    value: function showCard() {
+      var _this2 = this;
+
+      this.officer.querySelector('.plus').addEventListener('click', function (e) {
+        _this2.counter++; // console.log(this.counter);
+
+        if (_this2.counter == _this2.cards.length - 1) {
+          _this2.cards[_this2.cards.length - 1].remove(); //удаляем карточку с плюсом
+
+        }
+
+        _this2.cards[_this2.counter - 1].classList.add('animate__animated', 'animate__fadeInUp');
+
+        _this2.cards[_this2.counter - 1].style.display = 'flex'; //добавляем карточки по порядку в соотв.с counter
+      });
+    }
+  }, {
+    key: "init",
+    value: function init() {
+      // console.log(this.cards, this.plus);
+      this.hideCards();
+      this.showCard();
+    }
+  }]);
+
+  return Different;
+}();
+
+
 
 /***/ }),
 
@@ -3087,26 +3167,30 @@ function (_Slider) {
   _inherits(MiniSlider, _Slider);
 
   function MiniSlider(container, next, prev, activeClass, animate, autoplay) {
+    var _this;
+
     _classCallCheck(this, MiniSlider);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(MiniSlider).call(this, container, next, prev, activeClass, animate, autoplay));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MiniSlider).call(this, container, next, prev, activeClass, animate, autoplay));
+    _this.paused = false;
+    return _this;
   }
 
   _createClass(MiniSlider, [{
     key: "decorizeSlides",
     value: function decorizeSlides() {
-      var _this = this;
+      var _this2 = this;
 
       this.slides.forEach(function (slide) {
-        for (var i = 0; i < _this.slides.length; i++) {
+        for (var i = 0; i < _this2.slides.length; i++) {
           if (slide.tagName == 'BUTTON') {
             //т.к. в верстке изначально кнопки входят в контейнер слайдера
             continue;
           }
 
-          slide.classList.remove(_this.activeClass);
+          slide.classList.remove(_this2.activeClass);
 
-          if (_this.animate) {
+          if (_this2.animate) {
             slide.querySelector('.card__title').style.opacity = '0.4';
             slide.querySelector('.card__controls-arrow').style.opacity = '0';
           }
@@ -3129,15 +3213,15 @@ function (_Slider) {
   }, {
     key: "bindTriggers",
     value: function bindTriggers() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.next.addEventListener('click', function () {
-        return _this2.nextSlide();
+        return _this3.nextSlide();
       });
       this.prev.addEventListener('click', function () {
-        _this2.container.prepend(_this2.slides[_this2.slides.length - 1]);
+        _this3.container.prepend(_this3.slides[_this3.slides.length - 1]);
 
-        _this2.decorizeSlides();
+        _this3.decorizeSlides();
       });
     }
   }, {
@@ -3147,18 +3231,31 @@ function (_Slider) {
       this.decorizeSlides();
     }
   }, {
+    key: "addAutoplay",
+    value: function addAutoplay() {
+      var _this4 = this;
+
+      this.paused = setInterval(function () {
+        return _this4.nextSlide();
+      }, 5000);
+    }
+  }, {
     key: "init",
     value: function init() {
-      var _this3 = this;
+      var _this5 = this;
 
       this.container.style.cssText = "\n            display: flex;\n            flex-wrap: wrap;\n            overflow: hidden;\n            align-items: flex-start;\n        ";
       this.bindTriggers();
       this.decorizeSlides();
 
       if (this.autoplay) {
-        setInterval(function () {
-          return _this3.nextSlide();
-        }, 5000);
+        this.container.addEventListener('mouseenter', function () {
+          clearInterval(_this5.paused);
+        });
+        this.container.addEventListener('mouseleave', function () {
+          _this5.addAutoplay();
+        });
+        this.addAutoplay();
       }
     }
   }]);

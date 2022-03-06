@@ -3,7 +3,7 @@ import Slider from "./slider";
 export default class MiniSlider extends Slider {
     constructor(container, next, prev, activeClass, animate, autoplay) {
         super(container, next, prev, activeClass, animate, autoplay);
-
+        this.paused = false;
     }
 
     decorizeSlides() {
@@ -48,6 +48,10 @@ export default class MiniSlider extends Slider {
         this.decorizeSlides();
     }
 
+    addAutoplay() {
+        this.paused = setInterval(() => this.nextSlide(), 5000);
+    }
+
     init() {
         this.container.style.cssText = `
             display: flex;
@@ -60,7 +64,15 @@ export default class MiniSlider extends Slider {
         this.decorizeSlides();
         
         if (this.autoplay) {
-            setInterval(() => this.nextSlide(), 5000);
+            this.container.addEventListener('mouseenter', () => {
+                clearInterval(this.paused);
+            });
+
+            this.container.addEventListener('mouseleave', () => {
+                this.addAutoplay();
+            });
+
+            this.addAutoplay();
         }
     }
 }

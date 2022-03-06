@@ -1,6 +1,7 @@
 import MainSlider from './modules/slider/slider-main';
 import MiniSlider from './modules/slider/slider-mini';
 import VideoPlayer from './modules/playVideo';
+import Different from './modules/difference';
 
 window.addEventListener('DOMContentLoaded', () => {
     const slider = new MainSlider({btns: '.next', container: '.page'});
@@ -29,4 +30,7 @@ window.addEventListener('DOMContentLoaded', () => {
         activeClass: 'feed__item-active',
         animate: true,
         autoplay: true}).init();
+
+    new Different('.officerold', '.officer__card-item').init();
+    new Different('.officernew', '.officer__card-item').init();
 });
