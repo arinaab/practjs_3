@@ -5764,10 +5764,22 @@ function (_Slider) {
 
         if (this.autoplay) {
           this.container.addEventListener('mouseenter', function () {
-            clearInterval(_this5.paused);
+            return clearInterval(_this5.paused);
           });
           this.container.addEventListener('mouseleave', function () {
-            _this5.addAutoplay();
+            return _this5.addAutoplay();
+          });
+          this.prev.addEventListener('mouseenter', function () {
+            return clearInterval(_this5.paused);
+          });
+          this.prev.addEventListener('mouseleave', function () {
+            return _this5.addAutoplay();
+          });
+          this.next.addEventListener('mouseenter', function () {
+            return clearInterval(_this5.paused);
+          });
+          this.next.addEventListener('mouseleave', function () {
+            return _this5.addAutoplay();
           });
           this.addAutoplay();
         }
