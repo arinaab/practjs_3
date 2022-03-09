@@ -1,12 +1,12 @@
 export default class Accordion {
     constructor(triggers, text) {
-        this.triggers = document.querySelectorAll(triggers);
+        this.btns = document.querySelectorAll(triggers);
         this.text = document.querySelectorAll(text);
     }
 
     init() {
-        this.triggers.forEach(item => {
-            item.addEventListener('click', () => {
+        this.btns.forEach(btn => {
+            btn.addEventListener('click', () => {
                 this.text.forEach(item => {
                     if (item.style.display !== 'block') {
                         item.classList.add('animate__animated', 'animate__fadeIn');

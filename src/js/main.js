@@ -4,6 +4,7 @@ import VideoPlayer from './modules/playVideo';
 import Different from './modules/difference';
 import Form from './modules/form';
 import Accordion from './modules/accordion';
+import Download from './modules/download';
 
 window.addEventListener('DOMContentLoaded', () => {
     const slider = new MainSlider({btns: '.next', container: '.page'});
@@ -45,4 +46,6 @@ window.addEventListener('DOMContentLoaded', () => {
     new Form().init();
 
     new Accordion('.module__info-show .plus', '.msg').init();
+
+    new Download('.download').init();
 });
